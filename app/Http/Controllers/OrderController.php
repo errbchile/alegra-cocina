@@ -23,6 +23,15 @@ class OrderController extends Controller
         return response()->json(['message' => 'Orden registrada exitosamente'], 201);
     }
 
+    public function get_ingredients(Request $request)
+    {
+        Log::info("Ingredients received");
+        $order = Order::where('id', $request->order_code)->first();
+        $order->status = "finished";
+        $order->save();
+        Log::info("Order status changed to 'finished'");
+    }
+
     private function request_ingredients($order)
     {
         $formatted_ingredients = [];
