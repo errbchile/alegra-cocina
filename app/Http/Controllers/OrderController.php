@@ -25,7 +25,7 @@ class OrderController extends Controller
 
     public function pending_orders()
     {
-        $pending_orders = Order::with('dish', 'dish.ingredients')->where('status', 'pending')->get();
+        $pending_orders = Order::with('dish', 'dish.ingredients')->where('status', 'pending')->orderBy('id', 'desc')->get();
 
         return response()->json([
             'data' => $pending_orders
@@ -33,7 +33,7 @@ class OrderController extends Controller
     }
     public function finished_orders()
     {
-        $pending_orders = Order::with('dish', 'dish.ingredients')->where('status', 'finished')->get();
+        $pending_orders = Order::with('dish', 'dish.ingredients')->where('status', 'finished')->orderBy('id', 'desc')->get();
 
         return response()->json([
             'data' => $pending_orders
