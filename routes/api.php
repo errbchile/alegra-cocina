@@ -22,3 +22,5 @@ use App\Http\Controllers\OrderController;
 Route::post('/orders', [OrderController::class, 'store']);
 
 Route::post('/orders/get-ingredients', [OrderController::class, 'get_ingredients']);
+Route::get('/orders/pending-orders', [OrderController::class, 'pending_orders']);
+Route::get('/orders/finished-orders', [OrderController::class, 'finished_orders']);

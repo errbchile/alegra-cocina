@@ -23,6 +23,23 @@ class OrderController extends Controller
         return response()->json(['message' => 'Orden registrada exitosamente'], 201);
     }
 
+    public function pending_orders()
+    {
+        $pending_orders = Order::with('dish', 'dish.ingredients')->where('status', 'pending')->get();
+
+        return response()->json([
+            'data' => $pending_orders
+        ]);
+    }
+    public function finished_orders()
+    {
+        $pending_orders = Order::with('dish', 'dish.ingredients')->where('status', 'finished')->get();
+
+        return response()->json([
+            'data' => $pending_orders
+        ]);
+    }
+
     public function get_ingredients(Request $request)
     {
         Log::info("Ingredients received");
