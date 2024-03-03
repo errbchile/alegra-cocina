@@ -14,6 +14,21 @@ class DatabaseSeeder extends Seeder
      */
     public function run(): void
     {
+        $dish_names = [
+            'Lasagna',
+            'Spaghetti Carbonara',
+            'Chicken Alfredo',
+            'Margherita Pizza',
+            'Caesar Salad',
+            'Beef Tacos'
+        ];
+
+        foreach ($dish_names as $dish_name) {
+            $dish = Dish::create(['name' => $dish_name]);
+        }
+
+        $dishes = Dish::all();
+
         $ingredient_names = [
             'tomato',
             'lemon',
@@ -28,25 +43,10 @@ class DatabaseSeeder extends Seeder
         ];
 
         foreach ($ingredient_names as $name) {
-            Ingredient::create(['name' => $name]);
-        }
+            $ingredient = Ingredient::create(['name' => $name]);
 
-        $dish_names = [
-            'Lasagna',
-            'Spaghetti Carbonara',
-            'Chicken Alfredo',
-            'Margherita Pizza',
-            'Caesar Salad',
-            'Beef Tacos'
-        ];
-
-        foreach ($dish_names as $dish_name) {
-            $dish = Dish::create(['name' => $dish_name]);
-
-            $ingredients = Ingredient::all()->random(rand(1, 5));
-            $ingredients->each(function ($ingredient) use ($dish) {
-                $dish->ingredients()->attach($ingredient, ['quantity' => rand(1, 10)]);
-            });
+            $random_dish = $dishes->random();
+            $random_dish->ingredients()->attach($ingredient, ['quantity' => rand(1, 10)]);
         }
     }
 }
