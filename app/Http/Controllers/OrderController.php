@@ -65,9 +65,11 @@ class OrderController extends Controller
             'ingredients' => $formatted_ingredients,
         ];
 
+        $url = env('API_BODEGA_URL') . '/api/orders/create';
+
         $response = Http::withHeaders([
             'Accept' => 'application/json',
-        ])->post("http://127.0.0.1:8000/api/orders/create", $body);
+        ])->post($url, $body);
 
         Log::info($response->json());
     }
