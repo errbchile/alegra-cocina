@@ -9,6 +9,9 @@ class Order extends Model
 {
     use HasFactory;
 
+    public const PENDING = 'pending';
+    public const FINISHED = 'finished';
+
     protected $fillable = ['status'];
 
     public function dish()
