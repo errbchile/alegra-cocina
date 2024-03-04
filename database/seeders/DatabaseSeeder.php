@@ -41,12 +41,23 @@ class DatabaseSeeder extends Seeder
             'meat',
             'chicken'
         ];
-
+        // Acá nos aseguramos de que los diez ingredientes sean 
+        // usados en al menos una receta
         foreach ($ingredient_names as $name) {
             $ingredient = Ingredient::create(['name' => $name]);
 
             $random_dish = $dishes->random();
             $random_dish->ingredients()->attach($ingredient, ['quantity' => rand(1, 10)]);
+        }
+
+        // Acá nos aseguramos de que no hayan recetas vacias y 
+        // Que los ingredientes no se dupliquen en una misma receta
+        foreach ($dishes as $dish) {
+            $not_duplicated_ingredients = Ingredient::whereNotIn('id', $dish->ingredients->pluck('id'))->get();
+
+            $random_ingredient = $not_duplicated_ingredients->random();
+
+            $dish->ingredients()->attach($random_ingredient, ['quantity' => rand(1, 10)]);
         }
     }
 }
