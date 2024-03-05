@@ -1,10 +1,10 @@
 version: "3.7"
 
 services: 
-  nginx:
+  nginx_cocina:
     platform: linux/x86_64
     image: nginx:stable-alpine
-    container_name: nginx
+    container_name: nginx_cocina
     ports:
       - 8000:80
     volumes:
